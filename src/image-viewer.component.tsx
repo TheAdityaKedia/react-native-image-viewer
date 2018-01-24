@@ -427,6 +427,12 @@ export default class ImageViewer extends React.Component<typings.PropsDefine, ty
                 height *= HeightPixel
             }
 
+            // If height is bigger than width,
+            // scale height so image is not full screen.
+            if (height > width) {
+                height *= 0.8;
+            }
+
             if (imageInfo.status === 'success' && this.props.enableImageZoom) {
                 return (
                     <ImageZoom key={index}
@@ -441,8 +447,11 @@ export default class ImageViewer extends React.Component<typings.PropsDefine, ty
                         onLongPress={this.handleLongPress.bind(this, image)}
                         onClick={this.handleClick.bind(this)}
                         onDoubleClick={this.handleDoubleClick.bind(this)}>
-                        <Image style={Object.assign({}, this.styles.imageStyle, { width: width, height: height })}
-                            source={{ uri: image.url }} />
+                        <Image 
+                            style={Object.assign({}, this.styles.imageStyle, { width: width, height: height })}
+                            source={{ uri: image.url }} 
+                            resizeMode={"contain"}
+                        />
                     </ImageZoom>
                 )
             } else {
@@ -459,9 +468,12 @@ export default class ImageViewer extends React.Component<typings.PropsDefine, ty
                         )
                     case 'success':
                         return (
-                            <Image key={index}
+                            <Image 
+                                key={index}
                                 style={Object.assign({}, this.styles.imageStyle, { width: width, height: height })}
-                                source={{ uri: image.url }} />
+                                source={{ uri: image.url }} 
+                                resizeMode={"contain"}
+                            />
                         )
                     case 'fail':
                         return (
@@ -479,8 +491,11 @@ export default class ImageViewer extends React.Component<typings.PropsDefine, ty
                                 onDoubleClick={this.handleDoubleClick.bind(this)}>
                                 <TouchableOpacity key={index}
                                     style={this.styles.failContainer}>
-                                    <Image source={this.props.failImageSource}
-                                        style={this.styles.failImage} />
+                                    <Image 
+                                        source={this.props.failImageSource}
+                                        style={this.styles.failImage}
+                                        resizeMode={"contain"}
+                                    />
                                 </TouchableOpacity>
                             </ImageZoom>
                         )
