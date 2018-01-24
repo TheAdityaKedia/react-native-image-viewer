@@ -430,7 +430,7 @@ export default class ImageViewer extends React.Component<typings.PropsDefine, ty
             // If height is bigger than width,
             // scale height so image is not full screen.
             if (height > width) {
-                height *= 0.8;
+                height *= 0.75;
             }
 
             if (imageInfo.status === 'success' && this.props.enableImageZoom) {
